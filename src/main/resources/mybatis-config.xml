@@ -21,6 +21,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <mappers>
+    	<mapper resource="mapper/apt.xml"/>
         <mapper resource="mapper/member.xml"/>
         <mapper resource="mapper/notice.xml"/>
     </mappers>

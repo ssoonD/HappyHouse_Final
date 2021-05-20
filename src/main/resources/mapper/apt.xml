@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.edu.dao.AptMapper">
+	
+	<select id="searchByDong" resultType="com.ssafy.edu.dto.AptDto">
+		select * 
+		from houseinfo
+		where dong LIKE CONCAT('%',#{dong},'%') order by no
+	</select>
+	
+	<select id="searchByAptName" resultType="com.ssafy.edu.dto.AptDto">
+		select * 
+		from houseinfo
+		where aptName LIKE CONCAT('%',#{aptname},'%') order by no 
+	</select>
+	
+</mapper>
