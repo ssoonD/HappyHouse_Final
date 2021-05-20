@@ -25,8 +25,8 @@ import io.swagger.annotations.ApiOperation;
 //http://localhost:8197/ssafyvue/swagger-ui.html
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
-@RequestMapping("/answer")
-@Api(value="SSAFY", description="SSAFY Resouces Management 2019")
+@RequestMapping("/api")
+@Api(value="SSAFY", description="Happy House")
 public class AnswerController {
 	
 public static final Logger logger = LoggerFactory.getLogger(AnswerController.class);
