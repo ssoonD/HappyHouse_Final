@@ -1,41 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.edu.dao.MemberMapper">
 
-<mapper namespace="com.ssafy.guestbook.model.mapper.UserMapper">
+	<!-- 멤버 리스트 -->
+	<select id="findAllMember"
+		resultType="com.ssafy.edu.dto.MemberDto">
+		select * 
+		from member 
+		order by userid
+	</select>
+	
+	<!-- 회원 아이디로 검색 -->	
+	<select id="findMemberById"
+		resultType="com.ssafy.edu.dto.MemberDto">
+		select *
+		from member
+		where userid=#{userid}
+	</select>
+	
+	<!-- 전체 회원 수 -->
+	<select id="getMembersTotal" resultType="java.lang.Integer">
+		select count(*)
+		from member
+	</select>
 
-	<select id="login" parameterType="map" resultType="memberDto">
-		select username, userid, email
-		from ssafy_member
-		where userid = #{userid} and userpwd = #{userpwd}
-	</select>
-	
-	<select id="userList" resultType="memberDto">
-		select userid, userpwd, username, email, address, date_format(joindate, '%y.%m.%d') joindate
-		from ssafy_member
-		order by joindate desc;
-	</select>
-	
-	<select id="userInfo" parameterType="String" resultType="memberdto">
-		select userid, userpwd, username, email, address, date_format(joindate, '%y.%m.%d') joindate
-		from ssafy_member
-		where userid = #{userid}
-	</select>
-	
-	<insert id="userRegister" parameterType="MemberDto">
-		insert into ssafy_member (userid, userpwd, username, email, address, joindate)
-		values (#{userid}, #{userpwd}, #{username}, #{email}, #{address}, now())
+	<!-- 회원 등록 -->
+	<insert id="addMember"
+		parameterType="com.ssafy.edu.dto.MemberDto">
+		INSERT INTO member
+		(userid, username, userpwd, email, number, address, role, joindate)
+		VALUES(
+		#{userid},#{username},#{userpwd},#{email},#{number},#{address},0,now())
 	</insert>
-	
-	<update id="userModify" parameterType="MemberDto">
-		update ssafy_member
-		set userpwd = #{userpwd}, email = #{email}, address = #{address}
-		where userid = #{userid}
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember"
+		parameterType="com.ssafy.edu.dto.MemberDto">
+		UPDATE member 
+		SET username=#{username}, userpwd=#{userpwd} , email=#{email}, number=#{number}, address=#{address}, joindate=now()
+		WHERE userid=#{userid}
 	</update>
-	
-	<delete id="userDelete" parameterType="String">
-		delete from ssafy_member
-		where userid = #{userid}
+
+	<!-- 회원 삭제 -->
+	<delete id="deleteMember">
+		DELETE FROM member
+		WHERE userid=#{userid}
 	</delete>
-	
+
 </mapper>
