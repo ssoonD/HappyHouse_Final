@@ -56,7 +56,7 @@ public class NoticeController {
 		return new ResponseEntity<List<NoticeDto>>(notices, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "제목으로 공지사항의 정보를 찾는다.", response = List.class)
+	@ApiOperation(value = "작성자 이름으로 공지사항의 정보를 찾는다.", response = List.class)
 	@RequestMapping(value = "/findNoticeByUsername/{username}", method = RequestMethod.GET)
 	public ResponseEntity<List<NoticeDto>> findNoticeByUsername(@PathVariable String username) throws Exception {
 		logger.info("1-------------findNoticeByUsername-----------------------------" + new Date());
