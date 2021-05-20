@@ -22,6 +22,8 @@
 <configuration>
     <mappers>
     	<mapper resource="mapper/apt.xml"/>
+    	<mapper resource="mapper/question.xml"/>
+        <mapper resource="mapper/answer.xml"/>
         <mapper resource="mapper/member.xml"/>
         <mapper resource="mapper/notice.xml"/>
     </mappers>

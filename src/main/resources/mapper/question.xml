@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.edu.dao.QuestionMapper">
+	
+	<select id="findAllQuestion" resultType="com.ssafy.edu.dto.QuestionDto">
+		select * 
+		from question
+	</select>
+	
+	<select id="findAllQuestionByName" resultType="com.ssafy.edu.dto.QuestionDto">
+		select * 
+		from question
+		where username LIKE CONCAT('%',#{name},'%') order by no 
+	</select>
+	
+	<select id="findAllQuestionByTitle" resultType="com.ssafy.edu.dto.QuestionDto">
+		select * 
+		from question
+		where title LIKE CONCAT('%',#{title},'%') order by no 
+	</select>
+	
+	<select id="findAllQuestionByContent" resultType="com.ssafy.edu.dto.QuestionDto">
+		select * 
+		from question
+		where content LIKE CONCAT('%',#{content},'%') order by no 
+	</select>
+	
+	
+	<insert id="addQuestion"
+		parameterType="com.ssafy.edu.dto.QuestionDto">
+		INSERT INTO question
+		(username, title, content, date)
+		VALUES(
+		#{username},#{title},#{content},now())
+	</insert>
+	
+	<update id="updateQuestion"
+		parameterType="com.ssafy.edu.dto.QuestionDto">
+		UPDATE question 
+		SET username=#{username}, title=#{title} , content=#{content}, regtime=now()
+		WHERE idx=#{idx}
+	</update>
+	
+	<delete id="deleteQuestion" parameterType="java.lang.Integer">
+		DELETE FROM question
+		WHERE idx=#{no}
+	</delete>
+	
+</mapper>

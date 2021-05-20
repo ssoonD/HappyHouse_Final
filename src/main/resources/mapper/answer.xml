@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.edu.dao.AnswerMapper">
+	
+	<select id="findAllAnswer" parameterType="java.lang.Integer" resultType="com.ssafy.edu.dto.AnswerDto">
+		select * 
+		from answer
+		where idx=#{no}
+	</select>
+	
+	<insert id="addAnswer"
+		parameterType="com.ssafy.edu.dto.AnswerDto">
+		INSERT INTO question
+		(idx, username, title, content, date)
+		VALUES(
+		#{no}, #{username},#{title},#{content},now())
+	</insert>
+	
+	<update id="updateAnswer"
+		parameterType="com.ssafy.edu.dto.AnswerDto">
+		UPDATE answer 
+		SET title=#{title} , content=#{content}, regtime=now()
+		WHERE idx=#{no} and username=#{username} 
+	</update>
+	
+	<delete id="deleteAnswer" parameterType="java.lang.Integer">
+		DELETE FROM answer
+		WHERE idx=#{no} and username=#{username}
+	</delete>
+	
+</mapper>
