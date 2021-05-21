@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Shop from './views/Shop.vue'
 import Features from './views/Features';
+import AddMember from './components/member/AddMember.vue';
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/features',
       name: 'features',
       component: Features
+    },
+    {
+      path: '/addmember',
+      name: 'addmember',
+      component: AddMember
     }
   ]
 })

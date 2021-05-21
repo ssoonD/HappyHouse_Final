@@ -8,12 +8,12 @@
                 </div>
 
                 <span class="topbar-child1">
-					환영합니다. username님!
+					환영합니다. {{ username }}님!
 				</span>
 
                 <div class="topbar-child2">
 					<span class="topbar-email">
-						username@example.com
+						{{ email }}
 					</span>
 
                     <div class="topbar-language rs1-select2">
@@ -56,12 +56,12 @@
                     <span class="linedivide1"></span> -->
 
                     <div class="header-wrapicon2">
-                        <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                        <span class="header-icons-noti">{{ totalCartQty }}</span>
+                        <img src="images/icons/icon-header-01.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <!-- <span class="header-icons-noti">{{ totalCartQty }}</span> -->
 
                         <!-- Header cart noti -->
                         <div class="header-cart header-dropdown">
-                            <ul class="header-cart-wrapitem">
+                            <!-- <ul class="header-cart-wrapitem">
                                 <template v-for="product in cartItems">
                                     <li class="header-cart-item">
                                         <div class="header-cart-item-img">
@@ -79,27 +79,62 @@
                                         </div>
                                     </li>
                                 </template>
-                            </ul>
+                            </ul> -->
 
-                            <div class="header-cart-total">
+                            <!-- <div class="header-cart-total">
                                 Total: ${{ totalCartPrice }}
-                            </div>
-
-                            <div class="header-cart-buttons">
-                                <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        View Cart
-                                    </a>
+                            </div> -->
+                            <div id="login">
+                                <div class="login_title_warp">
+                                    <h2>Login</h2>
                                 </div>
+                                <div id="login_wrap">
+                                  <form class="login" @submit.prevent="login">
+                                    <input
+                                      type="text"
+                                      id="_userid"
+                                      name="userid"
+                                      value
+                                      data-msg="ID를"
+                                      size="30"
+                                      title="아이디"
+                                      required
+                                      v-model="userid"
+                                      placeholder="아이디를 입력하세요."
+                                      style="border: 1px solid #dddddd;"
+                                    />
+                                    <input
+                                      type="password"
+                                      id="_userpwd"
+                                      name="userpwd"
+                                      value
+                                      required
+                                      v-model="userpwd"
+                                      placeholder="패스워드를 입력하세요."
+                                      size="30"
+                                      title="패스워드"
+                                      style="border: 1px solid #dddddd;"
+                                    />
+                                    <div class="header-cart-buttons">
+                                      <div class="header-cart-wrapbtn">
+                                        <button type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Login</button>
+                                          <!-- <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                              Login
+                                          </a> -->
+                                      </div>
 
-                                <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        Check Out
-                                    </a>
+                                      <div class="header-cart-wrapbtn">
+                                        <router-link to="/addmember" style="text-decoration:none" class="button flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Join</router-link>
+                                          <!-- <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                              Join
+                                          </a> -->
+                                      </div>
+                                  </div>
+                                  </form>
                                 </div>
+                              </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -253,18 +288,37 @@
         </div>
     </header>
 </template>
+
 <script>
-    import { mapState, mapGetters } from 'vuex';
+import http from '../http-common'
 
     export default {
-        computed: {
-            ...mapState('cart', {
-                cartItems: state => state.items
-            }),
-            ...mapGetters('cart', {
-                totalCartPrice: 'totalPrice',
-                totalCartQty: 'totalQty'
+        name: 'login',
+        data() {
+          return {
+            member: {},
+            userid: '',
+            userpwd: '',
+            username: '',
+            email: '',
+            submitted: false,
+          }
+        },
+        methods: {
+          login() {
+            http
+            .get('/findMemberById/' + this.userid)
+            .then((response) => {
+              this.member = response.data;
+              if (this.member.userpwd === this.userpwd) {
+                alert('로그인에 성공하였습니다.');
+                this.username = this.member.username;
+                this.email = this.member.email;
+              } else {
+                alert('로그인에 실패하였습니다.')
+              }
             })
+          }
         }
     }
 </script>
