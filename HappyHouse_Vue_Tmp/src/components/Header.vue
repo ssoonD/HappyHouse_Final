@@ -4,27 +4,20 @@
         <div class="container-menu-header">
             <div class="topbar">
                 <div class="topbar-social">
-                    <a href="https://facebook.com" target="_blank" class="topbar-social-item fa fa-facebook"></a>
-                    <a href="#" class="topbar-social-item fa fa-instagram"></a>
-                    <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-                    <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-                    <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
+                  <!-- SNS -->
                 </div>
 
                 <span class="topbar-child1">
-					Free shipping for standard order over $100
+					환영합니다. username님!
 				</span>
 
                 <div class="topbar-child2">
 					<span class="topbar-email">
-						fashe@example.com
+						username@example.com
 					</span>
 
                     <div class="topbar-language rs1-select2">
-                        <select class="selection-1" name="time">
-                            <option>USD</option>
-                            <option>EUR</option>
-                        </select>
+                      <!-- 언어 -->
                     </div>
                 </div>
             </div>
@@ -32,7 +25,7 @@
             <div class="wrap_header">
                 <!-- Logo -->
                 <a href="index.html" class="logo">
-                    <img src="images/icons/logo.png" alt="IMG-LOGO">
+                    <img src="images/icons/happyhouselogo.png" alt="IMG-LOGO">
                 </a>
 
                 <!-- Menu -->
@@ -56,11 +49,11 @@
 
                 <!-- Header Icon -->
                 <div class="header-icons">
-                    <a href="#" class="header-wrapicon1 dis-block">
+                    <!-- <a href="#" class="header-wrapicon1 dis-block">
                         <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
                     </a>
 
-                    <span class="linedivide1"></span>
+                    <span class="linedivide1"></span> -->
 
                     <div class="header-wrapicon2">
                         <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
