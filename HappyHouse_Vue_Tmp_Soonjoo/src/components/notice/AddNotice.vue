@@ -58,9 +58,9 @@
         </b-form>
       </div>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <router-link to="/noticelist"></router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -120,6 +120,7 @@ import http from '@/http-common'
             alert('작성에 실패하였습니다.')
           }
           this.submitted = true
+          this.$router.push("/noticelist");
         })
       },
       onReset() {

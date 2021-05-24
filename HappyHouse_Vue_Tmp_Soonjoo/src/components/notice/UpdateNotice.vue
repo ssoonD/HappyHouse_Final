@@ -48,9 +48,9 @@
         </b-form>
       </div>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <router-link to="/noticelist"></router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -124,6 +124,7 @@ import http from '@/http-common'
             }
           })
         this.submitted = true
+        this.$router.push("/detailnotice/" + this.id);
       },
       newCustomer() {
         this.submitted = false
