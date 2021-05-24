@@ -6,8 +6,7 @@ import product from './product/index';
 import cart from './cart/index';
 import blog from './blog/index';
 import insta from './insta/index';
-import user from './modules/user'
-import auth from './modules/auth'
+import member from './member/index';
 
 Vue.use(Vuex)
 
@@ -18,8 +17,7 @@ export default new Vuex.Store({
     cart,
     blog,
     insta,
-    user,
-    auth,
+    member
   },
   state: {
 

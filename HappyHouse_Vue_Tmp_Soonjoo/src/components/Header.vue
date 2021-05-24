@@ -40,8 +40,8 @@
                                 <a>Shop</a>
                             </router-link>
 
-                            <router-link :to="{name: 'features'}" tag="li" active-class="sale-not" exact>
-                                <a>Features</a>
+                            <router-link :to="{name: 'noticelist'}" tag="li" active-class="sale-not" exact>
+                                <a>Notice</a>
                             </router-link>
                         </ul>
                     </nav>

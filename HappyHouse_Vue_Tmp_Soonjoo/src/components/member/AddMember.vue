@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container border mt-4 mb-4" v-if="!submitted">
-      <h1>Join</h1>
+      <h1 class="mt-4 mb-4" style="text-align:center;">Join</h1>
       <div class="container border mt-4 mb-4">
         <b-form @submit.prevent="addMember" @reset.prevent="onReset">
           <b-form-group id="userid" label="Your userid:" label-for="userid">

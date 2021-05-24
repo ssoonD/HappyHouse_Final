@@ -139,8 +139,8 @@ ul, li {
 
 /* ------------------------------------ */
 input {
-	outline: none;
-	border: none !important;
+	/* outline: none; */
+	/* border: none !important; */
 }
 
 textarea {
@@ -2075,6 +2075,26 @@ li.sale-noti > a {
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
 }
+
+/* .table-shopping-cart .column-1 {
+  width: 225px;
+  padding-left: 50px;
+}
+.table-shopping-cart .column-2 {
+  width: 330px;
+  padding-right: 30px;
+}
+.table-shopping-cart .column-3 {
+  width: 133px;
+  padding-right: 30px;
+}
+.table-shopping-cart .column-4 {
+  width: 355px;
+  padding-right: 30px;
+}
+.table-shopping-cart .column-5 {
+  padding-right: 30px;
+} */
 
 .table-shopping-cart .column-1 {
   width: 225px;
