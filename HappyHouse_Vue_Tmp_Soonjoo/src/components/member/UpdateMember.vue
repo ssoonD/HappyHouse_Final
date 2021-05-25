@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="container mt-4 mb-4" v-if="!submitted">
-      <h1 class="mt-4 mb-4" style="text-align:center;">Join</h1>
+      <h1 class="mt-4 mb-4" style="text-align:center;">{{member.userid}} 의 정보수정</h1>
       <div class="container border mt-4 mb-4">
-        <b-form @submit.prevent="addMember" @reset.prevent="onReset" class="mt-4 mb-4">
-          <b-form-group 
+        <b-form @submit.prevent="updateMember" @reset.prevent="onReset" class="mt-4 mb-4">
+          <!-- <b-form-group 
             id="userid" 
             label="Your Userid" 
             label-for="userid"
@@ -19,7 +19,7 @@
               placeholder="Your Userid"
               trim
             ></b-form-input>
-          </b-form-group>
+          </b-form-group> -->
           <b-form-group 
             id="username" 
             label="Your Username" 
@@ -137,7 +137,8 @@
 import http from '@/http-common'
 
   export default {
-    name: 'add-member',
+    name: 'update-member',
+    props: ['id'],
     data() {
       return {
         member: {
@@ -237,26 +238,37 @@ import http from '@/http-common'
         }
       }
     },
+    mounted() {
+    http
+      .get('/findMemberById/' + this.id)
+      .then((response) => {
+        this.member = response.data
+      })
+      .catch(() => {
+        this.errored = true
+      })
+      .finally(() => (this.loading = false))
+    },
     methods: {
-      addMember() {
+      updateMember() {
         http
-        .post('/addMember', {
-          userid: this.member.userid,
-          username: this.member.username,
-          userpwd: this.member.userpwd,
-          email: this.member.email,
-          number: this.member.number,
-          address: this.member.address
-        })
-        .then((response) => {
-          if (response.data.state == 'succ') {
-            alert('회원 가입에 성공하였습니다.')
-          } else {
-            alert('회원 가입에 실패하였습니다.')
-          }
-          this.submitted = true
-          this.$router.push("/");
-        })
+          .put('/updateMember', {
+            userid: this.member.userid,
+            username: this.member.username,
+            userpwd: this.member.userpwd,
+            email: this.member.email,
+            number: this.member.number,
+            address: this.member.address
+          })
+          .then((response) => {
+            if (response.data.state == 'succ') {
+              alert('정보를 수정 하였습니다.')
+            } else {
+              alert('정보를 수정 하지 못했습니다.')
+            }
+          })
+        this.submitted = true
+        this.$router.push("/detailmember/" + this.id);
       },
       onReset() {
         this.member.userid = ''

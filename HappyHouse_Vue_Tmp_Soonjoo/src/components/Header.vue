@@ -7,13 +7,13 @@
                   <!-- SNS -->
                 </div>
 
-                <span class="topbar-child1">
-					환영합니다. {{ username }}님!
+                <span class="topbar-child1" v-if="isLogin">
+					환영합니다. {{ loginmember.username }}님!
 				</span>
 
                 <div class="topbar-child2">
 					<span class="topbar-email">
-						{{ email }}
+						{{ loginmember.email }}
 					</span>
 
                     <div class="topbar-language rs1-select2">
@@ -36,7 +36,7 @@
                                 <a>Home</a>
                             </router-link>
 
-                            <router-link :to="{name: 'shop'}" tag="li" active-class="sale-noti" exact>
+                            <router-link :to="{name: 'questionlist'}" tag="li" active-class="sale-noti" exact>
                                 <a>Shop</a>
                             </router-link>
 
@@ -61,35 +61,17 @@
 
                         <!-- Header cart noti -->
                         <div class="header-cart header-dropdown">
-                            <!-- <ul class="header-cart-wrapitem">
-                                <template v-for="product in cartItems">
-                                    <li class="header-cart-item">
-                                        <div class="header-cart-item-img">
-                                            <img :src="product.image" alt="IMG">
-                                        </div>
-
-                                        <div class="header-cart-item-txt">
-                                            <router-link to="/" class="header-cart-item-name">
-                                                {{ product.title }}
-                                            </router-link>
-
-                                            <span class="header-cart-item-info">
-                                              {{ product.qty }} x ${{ product.price }}
-                                            </span>
-                                        </div>
-                                    </li>
-                                </template>
-                            </ul> -->
-
-                            <!-- <div class="header-cart-total">
-                                Total: ${{ totalCartPrice }}
-                            </div> -->
-                            <div id="login">
-                                <div class="login_title_warp">
-                                    <h2>Login</h2>
-                                </div>
-                                <div id="login_wrap">
-                                  <form class="login" @submit.prevent="login">
+                          <!-- 로그인 하기 전 -->
+                            <div id="login" v-if="checklogin()">
+                              <div class="login_title_warp">
+                                <h2 class="mt-4 mb-4" style="text-align:center;">Login</h2>
+                              </div>
+                              <div id="login_wrap">
+                                <form class="login" @submit.prevent="login">
+                                  <b-input-group class="mb-2">
+                                    <b-input-group-prepend is-text>
+                                      <b-icon icon="person-fill"></b-icon>
+                                    </b-input-group-prepend>
                                     <input
                                       type="text"
                                       id="_userid"
@@ -100,9 +82,14 @@
                                       title="아이디"
                                       required
                                       v-model="userid"
-                                      placeholder="아이디를 입력하세요."
+                                      placeholder=" Enter your ID."
                                       style="border: 1px solid #dddddd;"
                                     />
+                                  </b-input-group>
+                                  <b-input-group class="mb-2">
+                                    <b-input-group-prepend is-text>
+                                      <b-icon icon="lock-fill"></b-icon>
+                                    </b-input-group-prepend>
                                     <input
                                       type="password"
                                       id="_userpwd"
@@ -110,31 +97,78 @@
                                       value
                                       required
                                       v-model="userpwd"
-                                      placeholder="패스워드를 입력하세요."
+                                      placeholder=" Enter your Password."
                                       size="30"
                                       title="패스워드"
                                       style="border: 1px solid #dddddd;"
                                     />
-                                    <div class="header-cart-buttons">
-                                      <div class="header-cart-wrapbtn">
-                                        <button type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Login</button>
-                                          <!-- <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                              Login
-                                          </a> -->
-                                      </div>
-
-                                      <div class="header-cart-wrapbtn">
-                                        <router-link to="/addmember" style="text-decoration:none" class="button flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Join</router-link>
-                                          <!-- <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                              Join
-                                          </a> -->
-                                      </div>
+                                  </b-input-group>
+                                  <div class="header-cart-buttons mt-4">
+                                    <div class="header-cart-wrapbtn">
+                                      <button type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Login</button>
+                                        <!-- <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Login
+                                        </a> -->
+                                    </div>
+                                    <div class="header-cart-wrapbtn">
+                                      <router-link to="/addmember" style="text-decoration:none" class="button flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Join</router-link>
+                                        <!-- <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Join
+                                        </a> -->
+                                    </div>
                                   </div>
-                                  </form>
-                                </div>
+                                  <div class="mt-4" style="text-align: center;">
+                                    <router-link to="/findpassword" style="text-decoration:none;">Forgot password ?</router-link>
+                                  </div>
+                                </form>
                               </div>
                             </div>
-                            
+                            <!-- 로그인 성공 후 -->
+                            <div id="logout" v-else>
+                              <div class="logout_title_warp">
+                                  <h2 class="mt-4 mb-4" style="text-align:center;">{{member.username}} 님</h2>
+                              </div>
+                              <!-- 일반 사용자 -->
+                              <div id="logout_wrap" v-if="!admin">
+                                <form class="logout" @submit.prevent="logout">
+                                  <div class="header-cart-buttons mt-4">
+                                    <div class="header-cart-wrapbtn">
+                                      <button type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Logout</button>
+                                        <!-- <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Login
+                                        </a> -->
+                                    </div>
+
+                                    <div class="header-cart-wrapbtn">
+                                      <button type="button" @click="show_detail(member.userid)" class="button flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Mypage</button>
+                                        <!-- <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Join
+                                        </a> -->
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- 관리자 -->
+                              <div id="logout_wrap" v-else>
+                                <form class="logout" @submit.prevent="logout">
+                                  <div class="header-cart-buttons mt-4">
+                                    <div class="header-cart-wrapbtn">
+                                      <button type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">Logout</button>
+                                        <!-- <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Login
+                                        </a> -->
+                                    </div>
+
+                                    <div class="header-cart-wrapbtn">
+                                      <button type="button" @click="show_list" class="button flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">UserList</button>
+                                        <!-- <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Join
+                                        </a> -->
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -291,6 +325,7 @@
 
 <script>
 import http from '../http-common'
+import { mapState } from 'vuex';
 
     export default {
         name: 'login',
@@ -299,10 +334,15 @@ import http from '../http-common'
             member: {},
             userid: '',
             userpwd: '',
-            username: '',
-            email: '',
             submitted: false,
+            admin: false
           }
+        },
+        computed: {
+          ...mapState('member', {
+            loginmember: state => state.member,
+            isLogin: state => state.isLogin
+          })
         },
         methods: {
           login() {
@@ -314,10 +354,37 @@ import http from '../http-common'
                 alert('로그인에 성공하였습니다.');
                 this.username = this.member.username;
                 this.email = this.member.email;
+                this.submitted = true;
+                this.userid = '';
+                this.userpwd = '';
+                this.$store.dispatch('member/loginMember', this.member);
+                if(this.member.role === 1) {
+                  this.admin = true;
+                } else {
+                  this.admin = false;
+                }
               } else {
                 alert('로그인에 실패하였습니다.')
               }
             })
+          },
+          logout() {
+            this.member = {}
+            this.userid = ''
+            this.userpwd = ''
+            this.submitted = false;
+            this.$store.dispatch('member/logoutMember');
+            this.$router.push("/");
+          },
+          show_detail(userid) {
+            alert(userid + "상세보기");
+            this.$router.push("/detailmember/" + userid);
+          },
+          show_list() {
+            this.$router.push("/memberlist");
+          },
+          checklogin() {
+            return !this.submitted || !this.isLogin;
           }
         }
     }

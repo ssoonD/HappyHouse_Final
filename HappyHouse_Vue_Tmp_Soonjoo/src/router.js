@@ -3,11 +3,21 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Shop from './views/Shop.vue'
 import Features from './views/Features';
+
+import MemberList from './components/member/MemberList.vue'
+import DetailMember from './components/member/DetailMember.vue'
 import AddMember from './components/member/AddMember.vue';
+import UpdateMember from './components/member/UpdateMember.vue';
+
 import NoticeList from './components/notice/NoticeList.vue';
 import DetailNotice from './components/notice/DetailNotice.vue';
 import AddNotice from './components/notice/AddNotice.vue';
 import UpdateNotice from './components/notice/UpdateNotice.vue';
+
+import QuestionList from './components/qna/QuestionList.vue';
+import DetailQuestion from './components/qna/DetailQuestion.vue';
+import AddQuestion from './components/qna/AddQuestion.vue';
+import UpdateQuestion from './components/qna/UpdateQuestion.vue';
 
 Vue.use(Router)
 
@@ -31,9 +41,26 @@ export default new Router({
       component: Features
     },
     {
+      path: '/memberlist',
+      name: 'memberlist',
+      component: MemberList
+    },
+    {
+      path: '/detailmember/:id',
+      name: 'detailmember',
+      component: DetailMember,
+      props: true,
+    },
+    {
       path: '/addmember',
       name: 'addmember',
       component: AddMember
+    },
+    {
+      path: '/updatemember/:id',
+      name: 'updatemember',
+      component: UpdateMember,
+      props: true,
     },
     {
       path: '/noticelist',
@@ -55,6 +82,28 @@ export default new Router({
       path: '/updatenotice/:id',
       name: 'updatenotice',
       component: UpdateNotice,
+      props: true,
+    },
+    {
+      path: '/qeustionlist',
+      name: 'questionlist',
+      component: QuestionList
+    },
+    {
+      path: '/detailquestion/:id',
+      name: 'detailquestion',
+      component: DetailQuestion,
+      props: true,
+    },
+    {
+      path: '/addquestion',
+      name: 'addquestion',
+      component: AddQuestion
+    },
+    {
+      path: '/updatequestion/:id',
+      name: 'updatequestion',
+      component: UpdateQuestion,
       props: true,
     },
   ]

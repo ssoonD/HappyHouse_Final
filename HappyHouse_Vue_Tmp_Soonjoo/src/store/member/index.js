@@ -1,18 +1,30 @@
 export default {
   namespaced: true,
   state: {
-    mainMember: {}
+    member: {},
+    isLogin: false
+  },
+  getters: {
+    loginMember(state) {
+      return state.member;
+    }
   },
   mutations: {
-    setMainMember(state, member) {
-      state.mainMember = member;
+    loginMember(state, memberObj) {
+      state.member = memberObj;
+      state.isLogin = true;
+    },
+    logoutMember(state) {
+      state.member = {};
+      state.isLogin = false;
     }
   },
   actions: {
-    async setMainMember({ commit }) {
-      const response = await bannerApi.getMainSlideBanners();
-
-      commit('setMainMember', response.data);
+    loginMember({ commit }, memberObj) {
+      commit('loginMember', memberObj);
+    },
+    logoutMember({ commit }) {
+      commit('logoutMember');
     }
   }
 }
