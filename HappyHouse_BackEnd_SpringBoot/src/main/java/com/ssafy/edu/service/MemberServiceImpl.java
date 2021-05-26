@@ -26,6 +26,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto findMemberById(String userid) throws Exception {
 		return memberDao.findMemberById(userid);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public MemberDto findMemberByName(String username) throws Exception {
+		return memberDao.findMemberByName(username);
+	}
 
 	@Override
 	@Transactional(readOnly = true)

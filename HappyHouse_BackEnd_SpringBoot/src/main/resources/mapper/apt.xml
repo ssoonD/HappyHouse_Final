@@ -16,4 +16,22 @@
 		where aptName LIKE CONCAT('%',#{aptname},'%') order by no 
 	</select>
 	
+	<select id="searchByAll" parameterType="hashmap" resultType="com.ssafy.edu.dto.AptDto">
+		select * 
+		from houseinfo
+		where dong LIKE CONCAT('%',#{dong},'%') and aptName LIKE CONCAT('%',#{aptname},'%') order by no 
+	</select>
+	
+	<select id="dealInfo" resultType="com.ssafy.edu.dto.AptDealDto">
+		select * 
+		from housedeal
+		where AptName = #{aptname} ORDER BY cast(dealYear as unsigned) DESC, cast(dealMonth as unsigned) DESC, cast(dealDay as unsigned) DESC
+	</select>
+	
+	<select id="searchByGugun" resultType="com.ssafy.edu.dto.HospitalDto">
+		select * 
+		from hospital
+		where gugun = #{gugun}
+	</select>
+	
 </mapper>

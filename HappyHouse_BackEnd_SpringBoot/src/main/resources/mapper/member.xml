@@ -19,6 +19,14 @@
 		where userid=#{userid}
 	</select>
 	
+	<!-- 회원 이름으로 검색 -->	
+	<select id="findMemberByName"
+		resultType="com.ssafy.edu.dto.MemberDto">
+		select *
+		from member
+		where username=#{username}
+	</select>
+	
 	<!-- 전체 회원 수 -->
 	<select id="getMembersTotal" resultType="java.lang.Integer">
 		select count(*)

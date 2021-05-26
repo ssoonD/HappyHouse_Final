@@ -32,6 +32,12 @@ public class AptServiceImpl implements AptService {
 	public List<AptDto> searchByAptName(String aptname) throws Exception {
 		return aptDao.searchByAptName(aptname);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<AptDto> searchByAll(HashMap hs) throws Exception {
+		return aptDao.searchByAll(hs);
+	}
 
 
 }

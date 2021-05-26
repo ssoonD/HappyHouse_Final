@@ -55,6 +55,17 @@ public class MemberController {
 		}
 		return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "회원이름으로 회원의 정보를 찾는다.", response = MemberDto.class)
+	@RequestMapping(value = "/findMemberByName/{username}", method = RequestMethod.GET)
+	public ResponseEntity<MemberDto> findMemberByName(@PathVariable String username) throws Exception {
+		logger.info("1-------------findMemberByName-----------------------------" + new Date());
+		MemberDto member = memberService.findMemberByName(username);
+		if (member == null || member.getUserid().equals("")) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
+	}
 
 	@ApiOperation(value = "모든 회원의 수를 반환한다.", response = NumberResult.class)
 	@RequestMapping(value = "/getMembersTotal", method = RequestMethod.GET)

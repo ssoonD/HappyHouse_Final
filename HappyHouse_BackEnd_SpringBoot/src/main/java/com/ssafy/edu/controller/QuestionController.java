@@ -21,6 +21,7 @@ import com.ssafy.edu.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.ssafy.edu.help.BoolResult;
+import com.ssafy.edu.help.NumberResult;
 
 //http://localhost:8197/ssafyvue/swagger-ui.html
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
@@ -58,7 +59,7 @@ public class QuestionController {
 	    @ApiOperation(value = "질문제목으로 검색한 질문글의 정보를 반환한다.", response = List.class)
 	   	@RequestMapping(value = "/findAllQuestionByTitle/{title}", method = RequestMethod.GET)
 	   	public ResponseEntity<List<QuestionDto>> findAllQuestionByTitle(@PathVariable String title) throws Exception {
-	   		List<QuestionDto> question = questionService.findAllQuestionByName(title);
+	   		List<QuestionDto> question = questionService.findAllQuestionByTitle(title);
 	   		if (question.isEmpty()) {
 	   			return new ResponseEntity(HttpStatus.NO_CONTENT);
 	   		}
@@ -66,18 +67,38 @@ public class QuestionController {
 	   	}
 	    
 	    @ApiOperation(value = "질문내용으로 검색한 질문글의 정보를 반환한다.", response = List.class)
-	   	@RequestMapping(value = "/findAllQuestionByName/{content}", method = RequestMethod.GET)
+	   	@RequestMapping(value = "/findAllQuestionByContent/{content}", method = RequestMethod.GET)
 	   	public ResponseEntity<List<QuestionDto>> findAllQuestionByContent(@PathVariable String content) throws Exception {
-	   		List<QuestionDto> question = questionService.findAllQuestionByName(content);
+	   		List<QuestionDto> question = questionService.findAllQuestionByContent(content);
 	   		if (question.isEmpty()) {
 	   			return new ResponseEntity(HttpStatus.NO_CONTENT);
 	   		}
 	   		return new ResponseEntity<List<QuestionDto>>(question, HttpStatus.OK);
 	   	}
 	    
-	  
-	   
+	    @ApiOperation(value = "idx으로 검색한 질문글의 정보를 반환한다.", response = QuestionDto.class)
+	   	@RequestMapping(value = "/findQuestionByIdx/{idx}", method = RequestMethod.GET)
+	   	public ResponseEntity<QuestionDto> findQuestionByIdx(@PathVariable int idx) throws Exception {
+	   		QuestionDto question = questionService.findQuestionByIdx(idx);
+	   		if (question == null) {
+	   			return new ResponseEntity(HttpStatus.NO_CONTENT);
+	   		}
+	   		return new ResponseEntity<QuestionDto>(question, HttpStatus.OK);
+	   	}
 	    
+	    @ApiOperation(value = "idx에 해당하는 질문의 댓글 수를 반환한다.", response = NumberResult.class)
+		@RequestMapping(value = "/getQuestionsTotalByIdx/{idx}", method = RequestMethod.GET)
+		public ResponseEntity<NumberResult> getQuestionsTotalByIdx(@PathVariable int idx) throws Exception {
+			int total = questionService.getQuestionsTotalByIdx(idx);
+			NumberResult nr = new NumberResult();
+			nr.setCount(total);
+			nr.setName("getQuestionsTotalByIdx");
+			nr.setState("succ");
+			if (total <= 0) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<NumberResult>(nr, HttpStatus.OK);
+		}
 	   
 	    @ApiOperation(value = " 질문 작성 ", response = BoolResult.class)
 	   	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
@@ -94,7 +115,7 @@ public class QuestionController {
 	   	}
 	    
 	    @ApiOperation(value = " 질문 수정 ", response = BoolResult.class)
-	   	@RequestMapping(value = "/updateQuestion", method = RequestMethod.POST)
+	   	@RequestMapping(value = "/updateQuestion", method = RequestMethod.PUT)
 	   	public ResponseEntity<BoolResult> updateQuestion(@RequestBody QuestionDto dto) throws Exception {
 	   		boolean total = questionService.updateQuestion(dto);
 	   		BoolResult nr=new BoolResult();
@@ -108,10 +129,10 @@ public class QuestionController {
 	   	}
 	    
 	    @ApiOperation(value = "게시물 삭제", response = BoolResult.class)
-		@RequestMapping(value = "/deleteQuestion/{no}", method = RequestMethod.POST)
-		public ResponseEntity<BoolResult> deleteQuestion(@PathVariable int no) throws Exception {
+		@RequestMapping(value = "/deleteQuestion/{idx}", method = RequestMethod.DELETE)
+		public ResponseEntity<BoolResult> deleteQuestion(@PathVariable int idx) throws Exception {
 			
-			boolean total = questionService.deleteQuestion(no);
+			boolean total = questionService.deleteQuestion(idx);
 			BoolResult nr=new BoolResult();
 			nr.setCount(total);
 			nr.setName("deleteQuestion");

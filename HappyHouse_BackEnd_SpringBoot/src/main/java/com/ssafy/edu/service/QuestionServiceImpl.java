@@ -44,6 +44,12 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
+	public QuestionDto findQuestionByIdx(int idx) {
+		return questionDao.findQuestionByIdx(idx);
+	}
+	
+	@Override
 	@Transactional
 	public boolean addQuestion(QuestionDto question) {
 		return questionDao.addQuestion(question);
@@ -57,7 +63,13 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	@Override
 	@Transactional
-	public boolean deleteQuestion(int no) {
-		return questionDao.deleteQuestion(no);
+	public boolean deleteQuestion(int idx) {
+		return questionDao.deleteQuestion(idx);
+	}
+	
+	@Override
+	@Transactional
+	public int getQuestionsTotalByIdx(int idx) {
+		return questionDao.getQuestionsTotalByIdx(idx);
 	}
 }

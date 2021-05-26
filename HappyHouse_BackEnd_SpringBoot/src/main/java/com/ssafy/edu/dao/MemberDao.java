@@ -12,6 +12,9 @@ public interface MemberDao {
 	// 아이디로 찾기
 	public MemberDto findMemberById(String userid) throws Exception;
 
+	// 이름으로 찾기
+	public MemberDto findMemberByName(String username) throws Exception;
+
 	// 전체 멤버 수
 	public int getMembersTotal() throws Exception;
 

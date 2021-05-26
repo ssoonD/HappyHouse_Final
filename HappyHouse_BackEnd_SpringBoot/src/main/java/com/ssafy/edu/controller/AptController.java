@@ -28,8 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssafy.edu.dto.AptDealDto;
 import com.ssafy.edu.dto.AptDto;
+import com.ssafy.edu.dto.HospitalDto;
+import com.ssafy.edu.service.AptDealService;
 import com.ssafy.edu.service.AptService;
+import com.ssafy.edu.service.HospitalService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +52,11 @@ public class AptController {
 
 	@Autowired
 	private AptService aptService;
+	@Autowired
+	private AptDealService aptDealService;
+	@Autowired
+	private HospitalService hospitalService;
+	
 
 	@ApiOperation(value = "동으로 검색한 모든 집 정보를 반환한다.", response = List.class)
    	@RequestMapping(value = "/searchByDong/{dong}", method = RequestMethod.GET)
@@ -70,6 +79,41 @@ public class AptController {
    		}
    		return new ResponseEntity<List<AptDto>>(apt, HttpStatus.OK);
    	}
+	
+	@ApiOperation(value = "동, 아파트이름으로 검색한 모든 집 정보를 반환한다.", response = List.class)
+   	@RequestMapping(value = "/searchByAll/{aptname},{dong}", method = RequestMethod.GET)
+   	public ResponseEntity<List<AptDto>> searchByAll(@PathVariable String aptname, @PathVariable String dong) throws Exception {
+   		logger.info("1-------------searchByAll-----------------------------"+new Date());
+   		HashMap<String, String> hs = new HashMap<>();
+   		hs.put("dong", dong);
+   		hs.put("aptname", aptname);
+   		List<AptDto> apt = aptService.searchByAll(hs);
+   		if (apt.isEmpty()) {
+   			return new ResponseEntity(HttpStatus.NO_CONTENT);
+   		}
+   		return new ResponseEntity<List<AptDto>>(apt, HttpStatus.OK);
+   	}
+	
+	@ApiOperation(value = "아파트이름으로 검색한 모든 집의 실거래 정보를 반환한다.", response = List.class)
+   	@RequestMapping(value = "/dealInfo/{aptname}", method = RequestMethod.GET)
+   	public ResponseEntity<List<AptDealDto>> dealInfo(@PathVariable String aptname) throws Exception {
+   		logger.info("1-------------dealInfo-----------------------------"+new Date());
+   		List<AptDealDto> aptDeal = aptDealService.dealInfo(aptname);
+   		if (aptDeal.isEmpty()) {
+   			return new ResponseEntity(HttpStatus.NO_CONTENT);
+   		}
+   		return new ResponseEntity<List<AptDealDto>>(aptDeal, HttpStatus.OK);
+   	}
 
+	@ApiOperation(value = "구군으로 검색한 선별진료소 정보를 반환한다.", response = List.class)
+   	@RequestMapping(value = "/searchByGugun/{gugun}", method = RequestMethod.GET)
+   	public ResponseEntity<List<HospitalDto>> searchByGugun(@PathVariable String gugun) throws Exception {
+   		logger.info("1-------------searchByGugun-----------------------------"+new Date());
+   		List<HospitalDto> hospital = hospitalService.searchByGugun(gugun);
+   		if (hospital.isEmpty()) {
+   			return new ResponseEntity(HttpStatus.NO_CONTENT);
+   		}
+   		return new ResponseEntity<List<HospitalDto>>(hospital, HttpStatus.OK);
+   	}
 	
 }

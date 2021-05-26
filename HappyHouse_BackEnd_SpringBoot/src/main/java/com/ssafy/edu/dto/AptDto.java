@@ -3,7 +3,7 @@ package com.ssafy.edu.dto;
 public class AptDto {
 	int no;
 	String dong;
-	String AptName;
+	String aptName;
 	int code;
 	int buildYear;
 	String jibun;
@@ -14,7 +14,7 @@ public class AptDto {
 		super();
 		this.no = no;
 		this.dong = dong;
-		AptName = aptName;
+		this.aptName = aptName;
 		this.code = code;
 		this.buildYear = buildYear;
 		this.jibun = jibun;
@@ -39,11 +39,11 @@ public class AptDto {
 	}
 
 	public String getAptName() {
-		return AptName;
+		return aptName;
 	}
 
 	public void setAptName(String aptName) {
-		AptName = aptName;
+		this.aptName = aptName;
 	}
 
 	public int getCode() {
@@ -88,7 +88,7 @@ public class AptDto {
 
 	@Override
 	public String toString() {
-		return "AptDto [no=" + no + ", dong=" + dong + ", AptName=" + AptName + ", code=" + code + ", buildYear="
+		return "AptDto [no=" + no + ", dong=" + dong + ", AptName=" + aptName + ", code=" + code + ", buildYear="
 				+ buildYear + ", jibun=" + jibun + ", lat=" + lat + ", lng=" + lng + "]";
 	}
 	

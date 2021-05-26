@@ -23,8 +23,13 @@ public class AnswerDaoImpl implements AnswerDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<AnswerDto> findAllAnswer(int no){
-		return sqlSession.selectList(ns+"findAllAnswer", no);
+	public List<AnswerDto> findAllAnswer(int qidx){
+		return sqlSession.selectList(ns+"findAllAnswer", qidx);
+	}
+	
+	@Override
+	public AnswerDto findAnswerByIdx(int idx){
+		return sqlSession.selectOne(ns+"findAnswerByIdx", idx);
 	}
 
 	@Override
@@ -40,8 +45,8 @@ public class AnswerDaoImpl implements AnswerDao {
 	}
 	
 	@Override
-	public boolean deleteAnswer(int no) {
-		sqlSession.delete(ns+"deleteAnswer",no);
+	public boolean deleteAnswer(int idx) {
+		sqlSession.delete(ns+"deleteAnswer",idx);
 		return true;
 	}
 }

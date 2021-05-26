@@ -30,6 +30,11 @@ public class AptDaoImpl implements AptDao {
 	public List<AptDto> searchByAptName(String aptname) throws Exception {
 		return sqlSession.selectList(ns+"searchByAptName", aptname);
 	}
+	
+	@Override
+	public List<AptDto> searchByAll(HashMap hs) throws Exception {
+		return sqlSession.selectList(ns+"searchByAll", hs);
+	}
 
 
 }

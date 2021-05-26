@@ -12,40 +12,55 @@
 	<select id="findAllQuestionByName" resultType="com.ssafy.edu.dto.QuestionDto">
 		select * 
 		from question
-		where username LIKE CONCAT('%',#{name},'%') order by no 
+		where username LIKE CONCAT('%',#{username},'%') 
+		order by idx 
 	</select>
 	
 	<select id="findAllQuestionByTitle" resultType="com.ssafy.edu.dto.QuestionDto">
 		select * 
 		from question
-		where title LIKE CONCAT('%',#{title},'%') order by no 
+		where title LIKE CONCAT('%',#{title},'%') 
+		order by idx 
 	</select>
 	
 	<select id="findAllQuestionByContent" resultType="com.ssafy.edu.dto.QuestionDto">
 		select * 
 		from question
-		where content LIKE CONCAT('%',#{content},'%') order by no 
+		where content LIKE CONCAT('%',#{content},'%') 
+		order by idx 
 	</select>
 	
+	<select id="findQuestionByIdx" resultType="com.ssafy.edu.dto.QuestionDto">
+		select * 
+		from question
+		where idx = #{idx}
+	</select>
+	
+	<select id="getQuestionsTotalByIdx" resultType="java.lang.Integer">
+		select count(*)
+		from answer a join question q
+		on a.qidx = q.idx
+		where q.idx = #{idx}
+	</select>
 	
 	<insert id="addQuestion"
 		parameterType="com.ssafy.edu.dto.QuestionDto">
 		INSERT INTO question
-		(username, title, content, date)
+		(username, title, content, secret, password, date)
 		VALUES(
-		#{username},#{title},#{content},now())
+		#{username},#{title},#{content},#{secret},#{password},now())
 	</insert>
 	
 	<update id="updateQuestion"
 		parameterType="com.ssafy.edu.dto.QuestionDto">
 		UPDATE question 
-		SET username=#{username}, title=#{title} , content=#{content}, regtime=now()
+		SET username=#{username}, title=#{title} , content=#{content}, secret=#{secret}, password=#{password}, date=now()
 		WHERE idx=#{idx}
 	</update>
 	
 	<delete id="deleteQuestion" parameterType="java.lang.Integer">
 		DELETE FROM question
-		WHERE idx=#{no}
+		WHERE idx=#{idx}
 	</delete>
 	
 </mapper>

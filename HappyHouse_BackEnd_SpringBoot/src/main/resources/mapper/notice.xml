@@ -56,7 +56,7 @@
 	<update id="updateNotice"
 		parameterType="com.ssafy.edu.dto.NoticeDto">
 		UPDATE notice 
-		SET username=#{username}, title=#{title} , content=#{content}, date=now()
+		SET title=#{title} , content=#{content}, date=now()
 		WHERE idx=#{idx}
 	</update>
 

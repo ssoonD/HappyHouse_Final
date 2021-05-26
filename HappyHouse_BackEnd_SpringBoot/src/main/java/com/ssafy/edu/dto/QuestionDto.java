@@ -5,13 +5,21 @@ public class QuestionDto {
 	String username;
 	String title;
 	String content;
+	int secret;
+	String password;
 	String date;
 	
-	public QuestionDto(String username, String title, String content) {
+	public QuestionDto() {
+		super();
+	}
+
+	public QuestionDto(String username, String title, String content, int secret, String password) {
 		super();
 		this.username = username;
 		this.title = title;
 		this.content = content;
+		this.secret = secret;
+		this.password = password;
 	}
 	
 	public int getIdx() {
@@ -43,6 +51,25 @@ public class QuestionDto {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	
+
+	public int getSecret() {
+		return secret;
+	}
+
+	public void setSecret(int secret) {
+		this.secret = secret;
+	}
+	
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

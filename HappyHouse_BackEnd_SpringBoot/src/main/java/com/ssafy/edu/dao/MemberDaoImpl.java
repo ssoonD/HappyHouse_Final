@@ -25,6 +25,11 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberDto findMemberById(String userid) throws Exception {
 		return sqlSession.selectOne(ns + "findMemberById", userid);
 	}
+	
+	@Override
+	public MemberDto findMemberByName(String username) throws Exception {
+		return sqlSession.selectOne(ns + "findMemberByName", username);
+	}
 
 	@Override
 	public int getMembersTotal() throws Exception {

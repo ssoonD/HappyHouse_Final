@@ -1,0 +1,22 @@
+[
+  {
+    "image": "images/woohyun.jpg",
+    "title": "김우현",
+    "author": "Nancy Ward",
+    "createdAt": "2017-07-18",
+    "link": "/",
+    "content1": "카카오맵, 뉴스 API적용",
+    "content2": "주택검색, 진료소검색, 시설비교 기능 개발",
+    "content3": "DB연동/데이터셋구축"
+  },
+  {
+    "image": "images/soonjoo.jpg",
+    "title": "권순주",
+    "author": "Nancy Ward",
+    "createdAt": "2017-07-18",
+    "link": "/",
+    "content1": "로그인 / 회원가입 CRUD BackEnd & FrontEnd",
+    "content2": "Notice CRUD BackEnd & FrontEnd",
+    "content3": "QnA CRUD BackEnd & FrontEnd"
+  }
+]

@@ -2,16 +2,20 @@ package com.ssafy.edu.dto;
 
 public class AnswerDto {
 	int idx;
+	int qidx;
 	String username;
-	String title;
 	String content;
 	String date;
-	
-	public AnswerDto(int idx, String username, String title, String content) {
+
+	public AnswerDto() {
+		super();
+	}
+
+	public AnswerDto(int idx, int qidx, String username, String content) {
 		super();
 		this.idx = idx;
+		this.qidx = qidx;
 		this.username = username;
-		this.title = title;
 		this.content = content;
 	}
 
@@ -31,14 +35,6 @@ public class AnswerDto {
 		this.username = username;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -55,11 +51,17 @@ public class AnswerDto {
 		this.date = date;
 	}
 
+	public int getQidx() {
+		return qidx;
+	}
+
+	public void setQidx(int qidx) {
+		this.qidx = qidx;
+	}
+
 	@Override
 	public String toString() {
-		return "AnswerDto [idx=" + idx + ", username=" + username + ", title=" + title + ", content=" + content
-				+ ", date=" + date + "]";
+		return "AnswerDto [idx=" + idx + ", username=" + username + ", content=" + content + ", date=" + date + "]";
 	}
-	
-	
+
 }

@@ -42,6 +42,11 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 	
 	@Override
+	public QuestionDto findQuestionByIdx(int idx) {
+		return sqlSession.selectOne(ns + "findQuestionByIdx", idx);
+	}
+	
+	@Override
 	public boolean addQuestion(QuestionDto question) {
 		sqlSession.insert(ns+"addQuestion", question);
 		return true;
@@ -54,8 +59,13 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 	
 	@Override
-	public boolean deleteQuestion(int no) {
-		sqlSession.delete(ns+"deleteQuestion",no);
+	public boolean deleteQuestion(int idx) {
+		sqlSession.delete(ns+"deleteQuestion",idx);
 		return true;
+	}
+	
+	@Override
+	public int getQuestionsTotalByIdx(int idx) {
+		return sqlSession.selectOne(ns + "getQuestionsTotalByIdx", idx);
 	}
 }

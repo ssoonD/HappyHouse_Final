@@ -7,27 +7,33 @@
 	<select id="findAllAnswer" parameterType="java.lang.Integer" resultType="com.ssafy.edu.dto.AnswerDto">
 		select * 
 		from answer
-		where idx=#{no}
+		where qidx=#{qidx}
+	</select>
+	
+	<select id="findAnswerByIdx" parameterType="java.lang.Integer" resultType="com.ssafy.edu.dto.AnswerDto">
+		select * 
+		from answer
+		where idx=#{idx}
 	</select>
 	
 	<insert id="addAnswer"
 		parameterType="com.ssafy.edu.dto.AnswerDto">
-		INSERT INTO question
-		(idx, username, title, content, date)
+		INSERT INTO answer
+		(qidx, username, content, date)
 		VALUES(
-		#{no}, #{username},#{title},#{content},now())
+		#{qidx}, #{username},#{content},now())
 	</insert>
 	
 	<update id="updateAnswer"
 		parameterType="com.ssafy.edu.dto.AnswerDto">
 		UPDATE answer 
-		SET title=#{title} , content=#{content}, regtime=now()
-		WHERE idx=#{no} and username=#{username} 
+		SET content=#{content}, date=now()
+		WHERE idx=#{idx}
 	</update>
 	
 	<delete id="deleteAnswer" parameterType="java.lang.Integer">
 		DELETE FROM answer
-		WHERE idx=#{no} and username=#{username}
+		WHERE idx=#{idx}
 	</delete>
 	
 </mapper>

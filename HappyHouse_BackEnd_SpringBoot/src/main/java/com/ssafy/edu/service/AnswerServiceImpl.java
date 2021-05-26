@@ -21,8 +21,14 @@ public class AnswerServiceImpl implements AnswerService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<AnswerDto> findAllAnswer(int no){
-		return answerDao.findAllAnswer(no);
+	public List<AnswerDto> findAllAnswer(int qidx){
+		return answerDao.findAllAnswer(qidx);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public AnswerDto findAnswerByIdx(int idx){
+		return answerDao.findAnswerByIdx(idx);
 	}
 
 	@Override
@@ -39,7 +45,7 @@ public class AnswerServiceImpl implements AnswerService {
 	
 	@Override
 	@Transactional
-	public boolean deleteAnswer(int no) {
-		return answerDao.deleteAnswer(no);
+	public boolean deleteAnswer(int idx) {
+		return answerDao.deleteAnswer(idx);
 	}
 }
